@@ -19,9 +19,11 @@ module.exports = (stepService) => {
   const app = express();
 
   app.get("/users/:username/steps", (req, res) => {
-    pathParam = req.params.username;
+    const pathParam = req.params.username;
+    // Get data for user
     const userData = stepService.get(pathParam);
 
+    // Check if user not found return 404
     if (!userData || !userData.ts || !userData.cumulativeSteps) {
       return res.status(404).json({ error: "User doesn't exist" });
     }
